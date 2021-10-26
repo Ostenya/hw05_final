@@ -159,9 +159,7 @@ class PostFormsTests(TestCase):
             follow=True,
         )
         # Проверяем, сработал ли редирект
-        self.assertRedirects(response, (
-            reverse('users:login') +
-            f'?next=%2Fposts%2F{post.id}%2Fcomment%2F'
-            ))
+        self.assertRedirects(response, (reverse(
+            'users:login') + f'?next=%2Fposts%2F{post.id}%2Fcomment%2F'))
         # Проверяем, не увеличилось ли число постов
         self.assertEqual(post.comments.count(), comments_num)

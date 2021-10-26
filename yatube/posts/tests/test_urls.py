@@ -39,7 +39,7 @@ class PostURLTests(TestCase):
             f'/profile/{cls.user.username}/follow/': '',
             f'/profile/{cls.user.username}/unfollow/': '',
             f'/posts/{cls.post.id}/comment/': '',
-            }
+        }
         cls.urls_no = {'/unexisting_page': 'core/404.html', }
 
     def setUp(self):
