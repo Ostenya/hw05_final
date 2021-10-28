@@ -315,7 +315,7 @@ class PostViewsTests(TestCase):
 
     def test_authorized_client_follow(self):
         """Проверка того, что авторизованный пользователь может подписываться
-        на других пользователей и удалять их из подписок.
+        на других пользователей.
         """
         self.authorized_client.get(reverse(
             'posts:profile_follow',
@@ -327,6 +327,15 @@ class PostViewsTests(TestCase):
                 author=PostViewsTests.user,
             ).exists(),
             'Авторизованный пользователь не может подписываться на других'
+        )
+
+    def test_authorized_client_unfollow(self):
+        """Проверка того, что авторизованный пользователь может
+        удалять других пользователей из подписок.
+        """
+        Follow.objects.get_or_create(
+            user=PostViewsTests.user2,
+            author=PostViewsTests.user,
         )
         self.authorized_client.get(reverse(
             'posts:profile_unfollow',

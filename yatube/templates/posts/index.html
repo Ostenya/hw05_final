@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load thumbnail %}
 {% block title %}Последние обновления на сайте{% endblock %}
 {% block header %}Последние обновления на сайте{% endblock %}
 {% block content %}
@@ -8,23 +7,7 @@
     {% load cache %}
     {% cache 20 index_page page_obj %}
     {% for post in page_obj %}
-      <article>
-        <ul>
-          <li>
-            Автор: {{ post.author.get_full_name }}
-          </li>
-          <li>
-            Дата публикации: {{ post.pub_date|date:"d E Y" }}
-          </li>
-        </ul>
-        {% thumbnail post.image "100x100" crop="center" as im %}
-          <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-        {% endthumbnail %}
-        <p>{{ post.text|linebreaksbr }}</p>
-        <a href="{% url 'posts:post_detail' post.id %}">
-          подробная информация
-        </a>
-      </article>
+      {% include 'posts/includes/post.html' %}
       {% if post.group %}
         <a href="{% url 'posts:group_list' post.group.slug %}">
           все записи группы

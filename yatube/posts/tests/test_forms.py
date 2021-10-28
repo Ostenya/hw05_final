@@ -144,6 +144,7 @@ class PostFormsTests(TestCase):
             post.comments.filter(
                 text=PostFormsTests.form_data_comment['text'],
                 author=PostFormsTests.user,
+                post=post
             ).exists()
         )
 
